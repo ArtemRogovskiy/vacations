@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/teams")
 public class TeamsController {
 
-    private TeamService teamService;
+    private final TeamService teamService;
 
     public TeamsController(TeamService service) {
         this.teamService = service;

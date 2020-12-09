@@ -5,7 +5,7 @@ import com.netcracker.vacations.dto.UserDTO;
 public class PasswordRunnable implements Runnable {
     private final UserDTO user;
 
-    private UserService service;
+    private final UserService service;
 
     PasswordRunnable(UserDTO user, UserService service) {
         this.user = user;

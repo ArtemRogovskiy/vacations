@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/integration")
 public class IntegrationController {
 
-    private IntegrationService integrationService;
+    private final IntegrationService integrationService;
 
     public IntegrationController(IntegrationService integrationService) {
         this.integrationService = integrationService;

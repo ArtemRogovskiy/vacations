@@ -12,7 +12,7 @@ import org.springframework.security.config.annotation.method.configuration.Globa
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
 
-    private ApplicationContext applicationContext;
+    private final ApplicationContext applicationContext;
 
     @Autowired
     public MethodSecurityConfig(ApplicationContext applicationContext) {

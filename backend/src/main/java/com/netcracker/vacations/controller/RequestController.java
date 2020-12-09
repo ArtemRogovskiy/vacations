@@ -23,8 +23,8 @@ public class RequestController {
 
     private static final Logger logger = LoggerFactory.getLogger(RequestController.class);
 
-    private RequestService reqService;
-    private IntegrationService integrationService;
+    private final RequestService reqService;
+    private final IntegrationService integrationService;
 
     @Autowired
     public RequestController(RequestService reqService, IntegrationService integrationService) {

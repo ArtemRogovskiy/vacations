@@ -3,8 +3,6 @@ package com.netcracker.vacations.security;
 import com.netcracker.vacations.domain.TeamEntity;
 import com.netcracker.vacations.domain.UserEntity;
 import com.netcracker.vacations.repository.TeamRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,9 +15,8 @@ import static java.util.stream.Collectors.toSet;
 
 @Component("Security")
 public class SecurityExpressionMethods {
-    private static final Logger logger = LoggerFactory.getLogger(SecurityExpressionMethods.class);
 
-    private TeamRepository teamRepository;
+    private final TeamRepository teamRepository;
 
     @Autowired
     public SecurityExpressionMethods(TeamRepository teamRepository) {

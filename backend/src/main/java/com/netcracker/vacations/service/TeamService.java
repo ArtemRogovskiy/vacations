@@ -24,10 +24,10 @@ import java.util.Map;
 @Transactional
 public class TeamService {
 
-    private TeamRepository teamRepository;
-    private UserRepository userRepository;
-    private DepartmentRepository departmentRepository;
-    private RequestRepository requestRepository;
+    private final TeamRepository teamRepository;
+    private final UserRepository userRepository;
+    private final DepartmentRepository departmentRepository;
+    private final RequestRepository requestRepository;
 
     public TeamService(TeamRepository teamRepository, UserRepository userRepository, DepartmentRepository departmentRepository, RequestRepository requestRepository) {
         this.teamRepository = teamRepository;

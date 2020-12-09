@@ -17,10 +17,10 @@ import java.util.*;
 
 @Service
 public class CalendarService {
-    private UserRepository userRepo;
-    private TeamRepository teamRepo;
-    private DepartmentRepository depRepo;
-    private RequestRepository reqRepo;
+    private final UserRepository userRepo;
+    private final TeamRepository teamRepo;
+    private final DepartmentRepository depRepo;
+    private final RequestRepository reqRepo;
     SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
 
     @Autowired
@@ -33,7 +33,7 @@ public class CalendarService {
 
     public List<List<String>> getVacationsPerDay(String mode, String purpose) {
         List<Date> dates;
-        List<RequestEntity> teamReqs;
+        ArrayList<RequestEntity> teamReqs;
         List<UserEntity> teamUsers;
 
         String name = SecurityExpressionMethods.currentUserLogin();
@@ -67,7 +67,7 @@ public class CalendarService {
                     occupied.add(team.getName());
                     busy.add(team.getName());
 
-                    teamReqs = new ArrayList();
+                    teamReqs = new ArrayList<>();
                     teamUsers = userRepo.findAllByTeam(team);
 
 
@@ -189,7 +189,7 @@ public class CalendarService {
         List<RequestEntity> sick = new ArrayList<>();
         List<RequestEntity> remote = new ArrayList<>();
 
-        List<String> dates = new ArrayList<String>();
+        List<String> dates = new ArrayList<>();
 
         String begin;
         String end;
@@ -226,16 +226,22 @@ public class CalendarService {
     }
 
     private void collectRequests(List<RequestEntity> business, List<RequestEntity> child, List<RequestEntity> vacation, List<RequestEntity> sick, List<RequestEntity> remote, RequestEntity req) {
-        if (req.getTypeOfRequest().getName().equals("Business trip")) {
-            business.add(req);
-        } else if (req.getTypeOfRequest().getName().equals("Child care")) {
-            child.add(req);
-        } else if (req.getTypeOfRequest().getName().equals("Vacation")) {
-            vacation.add(req);
-        } else if (req.getTypeOfRequest().getName().equals("Remote work")) {
-            remote.add(req);
-        } else if (req.getTypeOfRequest().getName().equals("Sick leave")) {
-            sick.add(req);
+        switch (req.getTypeOfRequest().getName()) {
+            case "Business trip":
+                business.add(req);
+                break;
+            case "Child care":
+                child.add(req);
+                break;
+            case "Vacation":
+                vacation.add(req);
+                break;
+            case "Remote work":
+                remote.add(req);
+                break;
+            case "Sick leave":
+                sick.add(req);
+                break;
         }
     }
 

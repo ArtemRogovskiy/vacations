@@ -35,9 +35,9 @@ import java.util.List;
 @Transactional
 public class IntegrationService {
 
-    private RequestRepository requestRepository;
-    private UserRepository userRepository;
-    private GoogleCredentialRepository googleCredentialRepository;
+    private final RequestRepository requestRepository;
+    private final UserRepository userRepository;
+    private final GoogleCredentialRepository googleCredentialRepository;
 
     public IntegrationService(RequestRepository requestRepository,
                               UserRepository userRepository,

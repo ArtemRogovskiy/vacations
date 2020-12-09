@@ -11,8 +11,6 @@ import com.netcracker.vacations.repository.TeamRepository;
 import com.netcracker.vacations.repository.UserRepository;
 import com.netcracker.vacations.security.MyUserPrincipal;
 import com.netcracker.vacations.security.SecurityExpressionMethods;
-import org.apache.catalina.User;
-import org.hibernate.mapping.Collection;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,20 +37,20 @@ import java.util.concurrent.Executors;
 @Transactional
 public class UserService {
 
-    @Autowired
-    private JavaMailSender mailSender;
+    private final JavaMailSender mailSender;
 
     @Value("${spring-mail-username}")
     private String username;
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    private TeamRepository teamRepository;
+    private final TeamRepository teamRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository, TeamRepository teamRepository) {
+    public UserService(UserRepository userRepository, TeamRepository teamRepository, JavaMailSender mailSender) {
         this.userRepository = userRepository;
         this.teamRepository = teamRepository;
+        this.mailSender = mailSender;
     }
 
     public List<UserEntity> getUsers() {
@@ -64,11 +62,7 @@ public class UserService {
     }
 
     public List<UserEntity> getUsersSubordinateToManager(Integer id) {
-        List<UserEntity> response = new ArrayList<>();
-        for (UserEntity entity : userRepository.findAllByTeamManagerUsersId(id)) {
-            response.add(entity);
-        }
-        return response;
+        return new ArrayList<>(userRepository.findAllByTeamManagerUsersId(id));
     }
 
     public UserEntity getUser(Integer id) {
@@ -76,18 +70,13 @@ public class UserService {
     }
 
     public List<UserEntity> getUsersFromTeam(Integer teamId) {
-        List<UserEntity> response = new ArrayList<>();
-        for (UserEntity entity : userRepository.findAllByTeamTeamsId(teamId)) {
-            response.add(entity);
-        }
-        return response;
+        return new ArrayList<>(userRepository.findAllByTeamTeamsId(teamId));
     }
 
     public String getUsersName() {
         String name = SecurityExpressionMethods.currentUserLogin();
         UserEntity currentUser = userRepository.findByLogin(name).get(0);
-        String output = (currentUser.getRole().getName() + ": " + currentUser.getName() + " " + currentUser.getSurname());
-        return output;
+        return (currentUser.getRole().getName() + ": " + currentUser.getName() + " " + currentUser.getSurname());
     }
 
     public UserDTO getUserInfo() {
@@ -229,15 +218,12 @@ public class UserService {
         }
     }
 
-    public boolean sendMailPassword(UserDTO user) {
-        boolean isSent = false;
+    public void sendMailPassword(UserDTO user) {
         if (user.getEmail() != null) {
             String message = "Dear " + user.getName() + " " + user.getSurname() + ",\n" + "you successfully registered your account. " +
                     "Now your username is \"" + user.getLogin() + "\" and your password is \"" + user.getPassword() + "\". You can change your password on your account. For authorization visit next link: https://absence-management.azurewebsites.net/";
             send(user.getEmail(), "Account activation, password changing.", message);
-            isSent = true;
         }
-        return isSent;
     }
 
     public void send(String emailTo, String subject, String message) {
