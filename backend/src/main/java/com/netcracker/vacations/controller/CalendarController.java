@@ -13,7 +13,7 @@ import java.util.Map;
 @RequestMapping("/api/calendar")
 public class CalendarController {
 
-    private CalendarService service;
+    private final CalendarService service;
 
     @Autowired
     public CalendarController(CalendarService service) {

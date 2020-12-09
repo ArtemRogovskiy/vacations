@@ -6,7 +6,6 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
 
 public class MyUserPrincipal implements UserDetails {
     private final UserEntity user;
@@ -27,9 +26,8 @@ public class MyUserPrincipal implements UserDetails {
 
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> grantedAuthorities = AuthorityUtils
+        return AuthorityUtils
                 .commaSeparatedStringToAuthorityList("ROLE_" + user.getRole());
-        return grantedAuthorities;
     }
 
     @Override

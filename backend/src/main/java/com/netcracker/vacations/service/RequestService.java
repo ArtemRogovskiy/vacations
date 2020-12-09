@@ -32,15 +32,15 @@ import java.util.concurrent.Executors;
 @Service
 @Transactional
 public class RequestService {
-    private static final Logger logger = LoggerFactory.getLogger(RequestService.class);
+//    private static final Logger logger = LoggerFactory.getLogger(RequestService.class);
 
-    private RequestRepository requestRepository;
-    private RequestTypeRepository requestTypeRepository;
-    private UserRepository userRepository;
-    private TeamRepository teamRepository;
-    private DepartmentRepository departmentRepository;
-    private UserService userService;
-    private IntegrationService integrationService;
+    private final RequestRepository requestRepository;
+    private final RequestTypeRepository requestTypeRepository;
+    private final UserRepository userRepository;
+    private final TeamRepository teamRepository;
+    private final DepartmentRepository departmentRepository;
+    private final UserService userService;
+    private final IntegrationService integrationService;
 
     @Autowired
     public RequestService(RequestRepository requestRepository, RequestTypeRepository requestTypeRepository, UserRepository userRepository, TeamRepository teamRepository, DepartmentRepository departmentRepository, UserService userService, IntegrationService integrationService) {

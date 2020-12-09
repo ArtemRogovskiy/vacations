@@ -29,7 +29,7 @@ public class JwtLoginTokenFilter extends AbstractAuthenticationProcessingFilter 
 
     private final JwtConfig jwtConfig;
 
-    private UserService userService;
+    private final UserService userService;
 
     public JwtLoginTokenFilter(String url, AuthenticationManager authManager, JwtConfig jwtConfig, UserService userService) {
         super(new AntPathRequestMatcher(url));
@@ -41,7 +41,7 @@ public class JwtLoginTokenFilter extends AbstractAuthenticationProcessingFilter 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException {
-        UserCredentials creds = null;
+        UserCredentials creds;
         try {
             creds = new ObjectMapper().readValue(request.getInputStream(), UserCredentials.class);
         } catch (IOException e) {
@@ -58,7 +58,7 @@ public class JwtLoginTokenFilter extends AbstractAuthenticationProcessingFilter 
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
                                             Authentication auth) {
 
-        Long now = System.currentTimeMillis();
+        long now = System.currentTimeMillis();
 
         String authorities = auth.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
@@ -98,10 +98,6 @@ public class JwtLoginTokenFilter extends AbstractAuthenticationProcessingFilter 
 
         public String getPassword() {
             return password;
-        }
-
-        public void setPassword(String password) {
-            this.password = password;
         }
     }
 }

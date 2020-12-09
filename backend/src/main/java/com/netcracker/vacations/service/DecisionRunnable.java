@@ -5,7 +5,7 @@ import com.netcracker.vacations.domain.RequestEntity;
 public class DecisionRunnable implements Runnable {
     private final RequestEntity request;
 
-    private RequestService service;
+    private final RequestService service;
 
     DecisionRunnable(RequestEntity request, RequestService service) {
         this.request = request;

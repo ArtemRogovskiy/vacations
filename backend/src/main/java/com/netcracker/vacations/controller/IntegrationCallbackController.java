@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequestMapping("callback")
 public class IntegrationCallbackController {
 
-    private IntegrationService integrationService;
+    private final IntegrationService integrationService;
 
     public IntegrationCallbackController(IntegrationService integrationService) {
         this.integrationService = integrationService;

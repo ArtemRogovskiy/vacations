@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/departments")
 public class DepartmentsController {
 
-    private DepartmentService departmentService;
+    private final DepartmentService departmentService;
 
     public DepartmentsController(DepartmentService departmentService) {
         this.departmentService = departmentService;

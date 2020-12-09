@@ -7,7 +7,7 @@ import com.netcracker.vacations.repository.GoogleCredentialRepository;
 
 public class MySqlDataStoreFactory extends AbstractDataStoreFactory {
 
-    private GoogleCredentialRepository googleCredentialRepository;
+    private final GoogleCredentialRepository googleCredentialRepository;
 
     MySqlDataStoreFactory(GoogleCredentialRepository googleCredentialRepository) {
         this.googleCredentialRepository = googleCredentialRepository;

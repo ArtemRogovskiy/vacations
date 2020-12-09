@@ -13,7 +13,7 @@ import java.util.*;
 
 public class MySqlCredentialsDataStore extends AbstractDataStore<StoredCredential> {
 
-    private GoogleCredentialRepository googleCredentialRepository;
+    private final GoogleCredentialRepository googleCredentialRepository;
 
     /**
      * @param dataStoreFactory data store factory
