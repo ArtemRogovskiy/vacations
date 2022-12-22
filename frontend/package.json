@@ -12,7 +12,7 @@
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.15",
     "gantt-elastic": "^0.12.6",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "material-icons": "^0.3.1",
     "v-calendar": "^0.9.7",
     "vue": "^2.6.10",
